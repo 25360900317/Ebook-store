@@ -1,0 +1,99 @@
+\
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="Practical AI guides, ChatGPT workflows and prompt toolkits.">
+  <title>{% block title %}PromptShelf AI{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root{--ink:#111827;--muted:#667085;--brand:#6d5dfc;--brand2:#18c7a1;--line:#e7eaf2;--surface:#fff;--bg:#f7f8fc}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif}
+    h1,h2,h3,h4,.navbar-brand,.display-font{font-family:'Space Grotesk',sans-serif;letter-spacing:-.035em}
+    .navbar{background:rgba(11,16,32,.97);padding:16px 0}.brand-mark{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:11px;background:linear-gradient(135deg,#8d7bff,#4b8dff);color:white;margin-right:9px}
+    .navbar-brand{color:#fff!important;font-weight:700;font-size:1.2rem}.nav-link{color:#c9d0e5!important}
+    .page-wrap{min-height:75vh}.btn-primary{--bs-btn-bg:var(--brand);--bs-btn-border-color:var(--brand);--bs-btn-hover-bg:#5847ef;--bs-btn-hover-border-color:#5847ef;border-radius:12px;font-weight:700;padding:.75rem 1.05rem;box-shadow:0 7px 18px #6d5dfc25}
+    .btn-outline-light{border-radius:11px}.form-control,.form-select{border-color:#dfe3ed;border-radius:11px;padding:.75rem .9rem}.form-control:focus{border-color:#8b7fff;box-shadow:0 0 0 .2rem #6d5dfc18}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 82% 22%,#6455f84d,transparent 28%),radial-gradient(circle at 8% 100%,#18c7a126,transparent 35%),#0d1428;color:#fff;border-radius:28px;padding:clamp(2rem,6vw,4.5rem);box-shadow:0 24px 60px #0b102015}
+    .hero:after{content:"✦";position:absolute;right:8%;top:16%;font-size:clamp(5rem,14vw,10rem);color:#ffffff0b;transform:rotate(14deg)}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #ffffff2b;background:#ffffff0d;border-radius:99px;color:#d9ddff;font-size:.83rem;font-weight:600}
+    .hero h1{max-width:720px;font-size:clamp(2.5rem,6vw,4.6rem);line-height:1.02;font-weight:700;margin:22px 0}
+    .hero p{max-width:590px;color:#c5cce0;font-size:1.1rem;line-height:1.75}
+    .gradient-text{background:linear-gradient(90deg,#a69aff,#69e6cf);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .trust-pill{display:inline-flex;align-items:center;gap:7px;color:#d6dcef;font-size:.85rem;margin-right:18px;margin-top:15px}
+    .section-kicker{color:var(--brand);font-size:.77rem;text-transform:uppercase;letter-spacing:.14em;font-weight:800}
+    .product-card{border:1px solid var(--line);border-radius:22px;background:var(--surface);height:100%;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+    .product-card:hover{transform:translateY(-5px);box-shadow:0 20px 45px #17234a12}
+    .cover{min-height:190px;border-radius:17px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px;color:#fff;background:linear-gradient(135deg,#201c53,#6d5dfc)}
+    .cover:before{content:"";position:absolute;width:180px;height:180px;border:1px solid #ffffff3b;border-radius:50%;right:-35px;top:-50px;box-shadow:0 0 0 22px #ffffff09,0 0 0 45px #ffffff07}
+    .cover:after{content:"✦";position:absolute;right:24px;top:14px;font-size:3.8rem;color:#ffffff42}
+    .cover-content{position:relative;z-index:1}.cover-label{font-size:.68rem;letter-spacing:.16em;font-weight:800;color:#d7d2ff}.cover-title{font-family:'Space Grotesk';font-size:1.45rem;font-weight:700;line-height:1.08;max-width:220px;margin-top:9px}
+    .price{font-family:'Space Grotesk';font-size:1.8rem;font-weight:700;letter-spacing:-.04em}.old-label{font-size:.85rem;color:var(--muted)}
+    .feature-card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;height:100%}.feature-icon{width:42px;height:42px;display:grid;place-items:center;background:#f0eeff;color:var(--brand);border-radius:13px;font-size:1.2rem;margin-bottom:14px}
+    .checkout-card,.admin-card{background:#fff;border:1px solid var(--line);border-radius:24px;box-shadow:0 20px 50px #18234a0b}
+    .checkout-product{background:linear-gradient(135deg,#f2f0ff,#ecfbf7);border:1px solid #e5e4ff;border-radius:17px;padding:18px}
+    .payment-badge{display:inline-flex;align-items:center;gap:8px;border-radius:99px;padding:7px 11px;background:#eafaf5;color:#147b63;font-size:.8rem;font-weight:700}
+    .alert{border:0;border-radius:14px}.table{--bs-table-bg:transparent}.table thead th{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#667085;border-bottom-color:var(--line)}
+    footer{border-top:1px solid var(--line);color:#788196;margin-top:45px;padding:28px 0;font-size:.88rem}
+    /* Mobile-first usability improvements */
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+    body{overflow-wrap:anywhere}
+    img,svg,video,canvas{max-width:100%;height:auto}
+    input,select,textarea,button{font-size:16px}
+    .container{width:100%}
+    .table-responsive{overflow-x:auto;-webkit-overflow-scrolling:touch}
+    .btn{min-height:44px;touch-action:manipulation}
+    a,.nav-link{-webkit-tap-highlight-color:transparent}
+    @media(max-width:767.98px){
+      .navbar{padding:12px 0;margin-bottom:1rem!important}
+      .navbar .container{gap:8px;flex-wrap:nowrap}
+      .navbar-brand{font-size:1.05rem;white-space:nowrap;margin-right:0}
+      .brand-mark{width:30px;height:30px;border-radius:9px;margin-right:6px}
+      .navbar .btn{white-space:nowrap;padding:.45rem .65rem!important;min-height:40px}
+      main.container{padding-left:14px;padding-right:14px}
+      .hero{padding:1.5rem 1.15rem;border-radius:20px}
+      .hero h1{font-size:clamp(2rem,9vw,2.8rem);line-height:1.06;margin:16px 0}
+      .hero p{font-size:1rem;line-height:1.6}
+      .eyebrow{font-size:.75rem;padding:6px 9px}
+      .trust-pill{margin-right:8px;margin-top:10px;font-size:.78rem}
+      .product-card{border-radius:18px}
+      .product-card:hover{transform:none}
+      .cover{min-height:155px;padding:17px}
+      .cover-title{font-size:1.25rem}
+      .price{font-size:1.55rem}
+      .feature-card{padding:16px}
+      .checkout-card,.admin-card{border-radius:18px;padding:16px!important}
+      .checkout-product{padding:14px}
+      .form-control,.form-select{padding:.8rem .85rem;min-height:46px}
+      .btn-primary{width:100%;padding:.85rem 1rem}
+      .row{--bs-gutter-x:1rem}
+      h1{font-size:clamp(1.8rem,8vw,2.5rem)}
+      h2{font-size:clamp(1.45rem,6vw,1.9rem)}
+      footer{margin-top:25px;padding:22px 0;font-size:.82rem}
+    }
+    @media(max-width:380px){
+      .navbar-brand{font-size:.95rem}
+      .brand-mark{width:27px;height:27px}
+      .navbar .btn{font-size:.78rem}
+      .hero h1{font-size:2rem}
+      .cover-title{font-size:1.12rem}
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg mb-4">
+ <div class="container">
+  <a class="navbar-brand d-flex align-items-center" href="{{ url_for('index') }}"><span class="brand-mark">✦</span>PromptShelf <span class="ms-1" style="color:#a99cff">AI</span></a>
+  <div class="d-flex align-items-center gap-2"><span class="d-none d-sm-inline nav-link small">Learn smarter with AI</span><a class="btn btn-sm btn-outline-light px-3" href="{{ url_for('admin_login') }}">Admin ↗</a></div>
+ </div>
+</nav>
+<main class="container page-wrap pb-4">
+{% with messages=get_flashed_messages() %}{% if messages %}<div class="alert alert-info mb-4">{% for m in messages %}<div>{{m}}</div>{% endfor %}</div>{% endif %}{% endwith %}
+{% block content %}{% endblock %}
+</main>
+<footer><div class="container d-flex flex-column flex-md-row justify-content-between gap-2"><span><strong>PromptShelf AI</strong> · Practical digital learning</span><span>Secure checkout · Digital delivery · Customer support</span></div></footer>
+</body></html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Admin dashboard{% endblock %}
+{% block content %}
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4"><div><h1 class="h2 fw-bold">Admin dashboard</h1><p class="text-secondary mb-0">Manage listings and review recent orders.</p></div><form method="post" action="{{url_for('admin_logout')}}"><button class="btn btn-outline-secondary">Log out</button></form></div>
+<div class="admin-card mb-4"><div class="card-body p-4 p-md-5"><h2 class="h5 fw-bold">Add an eBook</h2>
+<form method="post" action="{{url_for('admin_add_product')}}" enctype="multipart/form-data" class="row g-3">
+<div class="col-md-6"><label class="form-label">Title</label><input class="form-control" name="title" required maxlength="160"></div>
+<div class="col-md-6"><label class="form-label">Price (INR)</label><input class="form-control" name="price" type="number" min="1" step="0.01" required></div>
+<div class="col-12"><label class="form-label">Description</label><textarea class="form-control" name="description" required maxlength="2000"></textarea></div>
+<div class="col-md-8"><label class="form-label">PDF file</label><input class="form-control" type="file" name="ebook" accept=".pdf" required></div>
+<div class="col-md-4 d-flex align-items-end"><button class="btn btn-primary w-100">Add product</button></div>
+</form></div></div>
+<div class="admin-card mb-4"><div class="card-body p-4 p-md-5"><h2 class="h5 fw-bold">Products</h2><div class="table-responsive"><table class="table align-middle"><thead><tr><th>Title</th><th>Price</th><th>Status</th><th></th></tr></thead><tbody>
+{% for p in products %}<tr><td>{{p.title}}</td><td>₹{{"%.2f"|format(p.price_paise/100)}}</td><td>{{"Active" if p.active else "Hidden"}}</td><td><form method="post" action="{{url_for('admin_toggle_product',product_id=p.id)}}"><button class="btn btn-sm btn-outline-secondary">{{"Hide" if p.active else "Activate"}}</button></form></td></tr>{% endfor %}
+</tbody></table></div></div></div>
+<div class="admin-card"><div class="card-body p-4 p-md-5"><h2 class="h5 fw-bold">Recent orders</h2><div class="table-responsive"><table class="table align-middle"><thead><tr><th>#</th><th>Product</th><th>Customer</th><th>Amount</th><th>Status</th><th>Email</th><th>Action</th></tr></thead><tbody>
+{% for o in orders %}<tr><td>{{o.id}}</td><td>{{o.product_title}}</td><td>{{o.email}}</td><td>₹{{"%.2f"|format(o.amount_paise/100)}}</td><td>{{o.status}}{% if o.manual_payment_ref %}<div class="small text-secondary text-break">Ref: {{o.manual_payment_ref}}</div>{% endif %}</td><td>{{"Sent" if o.email_sent_at else "Not marked sent"}}</td><td>{% if o.status=="paid" %}<form method="post" action="{{url_for('admin_resend',order_id=o.id)}}"><button class="btn btn-sm btn-outline-primary">Resend link</button></form>{% elif o.status=="manual_pending" %}<form method="post" action="{{url_for('admin_verify_manual_upi',order_id=o.id)}}" onsubmit="return confirm('Only continue after checking your actual bank/UPI account: confirm the exact amount and reference are credited. This will unlock the eBook.');"><button class="btn btn-sm btn-success">Verify credit & deliver</button></form><div class="small text-secondary mt-1">Check bank/UPI app first</div>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div></div></div>
+{% endblock %}

@@ -1,0 +1,7 @@
+\
+{% extends "base.html" %}{% block title %}Confirming your payment | PromptShelf{% endblock %}
+{% block content %}<div class="row justify-content-center py-5"><div class="col-lg-7"><div class="checkout-card text-center p-4 p-md-5">
+<div class="feature-icon mx-auto mb-3" style="width:60px;height:60px;font-size:1.7rem">⌁</div><div class="section-kicker mb-2">Almost there</div><h1 class="h2 fw-bold">We’re confirming your payment.</h1>
+<p class="text-secondary mx-auto mt-3" style="max-width:500px">For Razorpay checkout, delivery happens only after the server receives a valid payment-captured webhook. If you paid using the personal UPI QR, the order stays pending until the admin verifies the actual bank/UPI credit. This page alone never unlocks a download.</p>
+<div class="payment-badge mt-2">✓ Verified payment required</div><div class="mt-4"><a href="{{url_for('index')}}" class="btn btn-primary">Back to the library</a></div>
+</div></div></div>{% endblock %}

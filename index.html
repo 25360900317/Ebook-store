@@ -1,0 +1,35 @@
+\
+{% extends "base.html" %}{% block title %}AI eBooks & Prompt Kits | PromptShelf{% endblock %}
+{% block content %}
+<section class="hero mb-5">
+ <span class="eyebrow"><span style="color:#70e5ce">●</span> Practical AI guides for everyday work</span>
+ <h1>Make AI work <span class="gradient-text">for you.</span></h1>
+ <p>Clear, practical eBooks that help you use ChatGPT and AI tools for studying, creating content and getting work done — without the overwhelm.</p>
+ <div class="d-flex flex-wrap gap-2 mt-4"><a href="#library" class="btn btn-primary">Explore eBooks <span class="ms-1">↓</span></a><span class="trust-pill">✓ Beginner-friendly</span><span class="trust-pill">✓ Instant digital access</span></div>
+</section>
+<div class="d-flex flex-column flex-md-row align-items-md-end justify-content-between gap-2 mb-4" id="library">
+ <div><div class="section-kicker mb-2">The digital library</div><h2 class="fw-bold mb-1">Tools for your next big idea.</h2><p class="text-secondary mb-0">Choose a guide and start learning at your own pace.</p></div>
+ <span class="text-secondary small">Digital products · INR pricing</span>
+</div>
+<div class="row g-4">
+{% for p in products %}
+<div class="col-md-6 col-lg-4"><article class="product-card"><div class="p-3 p-sm-4">
+ <div class="cover mb-4"><div class="cover-content"><div class="cover-label">PROMPTS · WORKFLOWS · TEMPLATES</div><div class="cover-title">{{p.title}}</div></div></div>
+ <div class="d-flex align-items-center gap-2 mb-2"><span class="badge rounded-pill text-bg-light border">PDF eBook</span><span class="old-label">Instant access</span></div>
+ <h3 class="h5 fw-bold">{{p.title}}</h3><p class="text-secondary small" style="line-height:1.7;min-height:65px">{{p.description}}</p>
+ <div class="d-flex align-items-end justify-content-between gap-2 mb-3"><div><div class="old-label">One-time purchase</div><div class="price">₹{{"%.2f"|format(p.price_paise/100)}}</div></div><span class="small text-success fw-semibold">No subscription</span></div>
+ <form method="post" action="{{url_for('checkout', product_id=p.id)}}">
+  <label class="form-label small fw-semibold" for="email{{p.id}}">Where should we send your eBook?</label>
+  <input class="form-control mb-3" id="email{{p.id}}" type="email" name="email" placeholder="Your email address" maxlength="254" required>
+  <button class="btn btn-primary w-100" type="submit">Get this eBook <span class="ms-1">→</span></button>
+ </form>
+</div></article></div>
+{% else %}<p>No eBooks available yet.</p>{% endfor %}
+</div>
+<section class="row g-3 mt-4">
+ <div class="col-md-4"><div class="feature-card"><div class="feature-icon">✦</div><h3 class="h6 fw-bold">Made for real tasks</h3><p class="text-secondary small mb-0">Practical examples you can adapt for your own workflow.</p></div></div>
+ <div class="col-md-4"><div class="feature-card"><div class="feature-icon">⌁</div><h3 class="h6 fw-bold">Secure payment flow</h3><p class="text-secondary small mb-0">Access is unlocked only after verified payment confirmation.</p></div></div>
+ <div class="col-md-4"><div class="feature-card"><div class="feature-icon">↘</div><h3 class="h6 fw-bold">Delivered digitally</h3><p class="text-secondary small mb-0">Receive an expiring download link by email after payment.</p></div></div>
+</section>
+<div class="text-center py-5 mt-2"><div class="section-kicker mb-2">Simple by design</div><h2 class="fw-bold">Learn a tool. Build a better workflow.</h2><p class="text-secondary mx-auto" style="max-width:600px">Start with one guide, practise the examples, and make the ideas your own.</p></div>
+{% endblock %}
